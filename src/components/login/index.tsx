@@ -19,20 +19,18 @@ const Login = () => {
     console.log(data);
 
     if (!data.success) {
-      return toast(
-        data.message || "Something went wrong. Please try again later.",
-        {
-          type: "error",
-          theme: "dark",
-        }
-      );
+      toast(data.message || "Something went wrong. Please try again later.", {
+        type: "error",
+        theme: "dark",
+      });
     } else {
       router.push("/dashboard");
-      return toast(data.message || "Login successful.", {
+      toast(data.message || "Login successful.", {
         type: "success",
         theme: "dark",
       });
     }
+
     setLoading(false);
   };
 
