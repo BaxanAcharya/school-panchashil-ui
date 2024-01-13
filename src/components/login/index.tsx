@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/common/Button";
 import Loader from "@/common/Loader";
 import { loginApi } from "@/feature/auth/AuthApi";
@@ -15,6 +16,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     const data = await loginApi({ email, password });
+    console.log(data);
 
     if (!data.success) {
       return toast(
