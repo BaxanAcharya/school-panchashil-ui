@@ -1,37 +1,36 @@
 "use client";
 import Button from "@/common/Button";
 import Loader from "@/common/Loader";
+import UserContext from "@/context/userContext";
 import { loginApi } from "@/feature/auth/AuthApi";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { IProfile } from "@/types/Auth";
+import { FormEvent, useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const data = await loginApi({ email, password });
-    console.log(data);
+    const res = await loginApi({ email, password });
 
-    if (!data.success) {
-      toast(data.message || "Something went wrong. Please try again later.", {
-        type: "error",
-        theme: "dark",
-      });
-    } else {
-      router.push("/dashboard");
-      toast(data.message || "Login successful.", {
-        type: "success",
-        theme: "dark",
-      });
+    if (!res.success) {
+      setLoading(false);
+      return toast(
+        res.message || "Something went wrong. Please try again later.",
+        {
+          type: "error",
+          theme: "dark",
+          autoClose: 1000,
+        }
+      );
     }
-
     setLoading(false);
+    setUser(res.data.admin as IProfile);
   };
 
   return (
