@@ -3,7 +3,7 @@ import { Context, createContext } from "react";
 
 type UserContextType = {
   user: null | IProfile;
-  setUser: (user: IProfile) => void;
+  setUser: (user: IProfile | null) => void;
 };
 
 const defaultUserContextValue: UserContextType = {

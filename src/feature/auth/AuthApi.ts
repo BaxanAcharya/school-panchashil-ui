@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 import { Method, fetcher } from "@/lib/fetcher";
 import { ILogin } from "@/types/Auth";
 

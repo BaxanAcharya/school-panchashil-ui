@@ -4,8 +4,12 @@ import Loader from "@/common/Loader";
 import UserContext from "@/context/userContext";
 import { loginApi } from "@/feature/auth/AuthApi";
 import { IProfile } from "@/types/Auth";
+import { accessToken, refreshToken } from "@/types/Key";
 import { FormEvent, useContext, useState } from "react";
 import { toast } from "react-toastify";
+import Cookies from "universal-cookie";
+
+const cookie = new Cookies();
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,6 +35,10 @@ const Login = () => {
     }
     setLoading(false);
     setUser(res.data.admin as IProfile);
+    const accessTokenValue = res.data.accessToken as string;
+    cookie.set(accessToken, accessTokenValue);
+    const refreshTokenValue = res.data.refreshToken as string;
+    cookie.set(refreshToken, refreshTokenValue);
   };
 
   return (

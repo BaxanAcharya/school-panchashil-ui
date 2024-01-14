@@ -1,4 +1,7 @@
 import { GenericResponse } from "@/types/GenericResponse";
+import { accessToken } from "@/types/Key";
+import Cookies from "universal-cookie";
+const cookie = new Cookies();
 
 export const BASE_URL = "https://panchashilapi.biplabacharya.com.np/api/v1";
 export enum Method {
@@ -7,6 +10,8 @@ export enum Method {
   PUT = "PUT",
   DELETE = "DELETE",
 }
+
+const access = cookie.get(accessToken);
 
 export const fetcher = async (
   url: string,
@@ -27,6 +32,7 @@ export const fetcher = async (
       ? headers
       : {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${access}`,
         },
     body: body ? JSON.stringify(body) : undefined,
   });

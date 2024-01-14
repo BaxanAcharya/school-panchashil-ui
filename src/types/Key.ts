@@ -1,2 +1,2 @@
-export const ADMIN_ACCESS_KEY = "ADMIN_ACCESS_KEY";
-export const ADMIN_REFRESH_KEY = "ADMIN_REFRESH_KEY";
+export const accessToken = "accessToken";
+export const refreshToken = "refreshToken";
